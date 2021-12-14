@@ -29,6 +29,16 @@ const categoryControl={
                 res.status(200).json(result)
             }
         })
+    },
+    async deleteCategory(req,res){
+        let categoryID=req.params.id;
+        category.removeCategory(categoryID,function(err,result){
+            if (err){
+                res.status(500).json({"500 Error":err.code})
+            }else{
+                res.status(200).json({"200 Success":"Delete Successful"})
+            }
+        })
     }
 }
 

@@ -46,8 +46,42 @@ function viewCategory(callback){
 
     })
 }
+function removeCategory(categoryID,callback){
+    let connection=database.getConnection();
+    connection.connect(function(err) {
+        if (err) {
+            return callback(err, null)
+        }else{
+            let query='DELETE from category where categoryid=?'
+            connection.query(query,[categoryID],function(err,field,rows){
+                if (err){
+                    return callback(err,null)
+                }else{
+                    let secondQuery="update interest set categoryids=REGEXP_REPLACE(categoryids, ?, '')"
+                    connection.query(secondQuery,[categoryID],function(err,field,rows){
+                        if (err){
+                            console.log(err)
+                            return callback(err,null)
+                        }else{
+                            let thirdQuery="update interest set categoryids=REGEXP_REPLACE(categoryids,',,' , ',')"
+                            connection.query(thirdQuery,function(err,field,rows){
+                              connection.end()
+                                if (err){
+                                    return callback(err,null)
+                                }else{
+                                    return callback(null,field)
+                                }
+                            })
 
+                        }
+                    })
+                }
+            })
+        }
+
+    })
+}
 
 module.exports={
-    newCategory,viewCategory
+    newCategory,viewCategory,removeCategory
 }

@@ -12,5 +12,5 @@ const router=app.Router()
 
 router.post("/category",categoryControl.addCategory)
 router.get("/category",categoryControl.getAllCategory)
-
+router.delete("/category/:id",categoryControl.deleteCategory)
 module.exports=router
