@@ -1,0 +1,28 @@
+const reviewProduct=require("../models/review")
+const reviewControl={
+        async addReview(req,res){
+            let productID=req.params.id;
+            let userID=req.body.userid;
+            let rating=req.body.rating;
+            let review=req.body.review;
+            reviewProduct.newReview(productID,userID,rating,review,function(err,result){
+                if (err){
+                    res.status(500).json({"500 Error":err.code})
+                }else{
+                    res.status(201).json({"reviewid":result})
+                }
+            })
+        },
+        async getAllReview(req,res){
+            let productID=req.params.id;
+            reviewProduct.viewReview(productID,function(err,result){
+                if (err){
+                    res.status(500).json({"500 Error":err.code})
+                }else{
+                    res.status(200).json(result)
+                }
+            })
+        }
+}
+
+module.exports=reviewControl
