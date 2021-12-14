@@ -1,9 +1,9 @@
-/*
-Student ID:P2100746
-Student Name:CHEN ZHUOFAN
-Student Class:DAAA/FT/1B/04
-Date of Submission :07/12/2021
- */
+// ;==========================================
+// ; Title:  Express_StoreAPI
+// ; Author: ZhuoFan Chen
+// ; Email:zhuofan.21@ichat.sp.edu.sg
+// ; Date:   14 Dec 2021
+// ;==========================================
 const express=require('express')
 const userControl=require("./routes/user")
 const categoryControl=require("./routes/category")

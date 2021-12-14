@@ -1,3 +1,9 @@
+// ;==========================================
+// ; Title:  Express_StoreAPI
+// ; Author: ZhuoFan Chen
+// ; Email:zhuofan.21@ichat.sp.edu.sg
+// ; Date:   14 Dec 2021
+// ;==========================================
 const user=require("../models/user")
 const userControl={
     async getAllUsers(req,res){

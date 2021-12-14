@@ -1,3 +1,9 @@
+// ;==========================================
+// ; Title:  Express_StoreAPI
+// ; Author: ZhuoFan Chen
+// ; Email:zhuofan.21@ichat.sp.edu.sg
+// ; Date:   14 Dec 2021
+// ;==========================================
 const database=require('../config/DB-SP_IT')
 function viewUser(callback){
     let connection=database.getConnection();

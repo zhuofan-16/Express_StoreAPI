@@ -1,3 +1,9 @@
+// ;==========================================
+// ; Title:  Express_StoreAPI
+// ; Author: ZhuoFan Chen
+// ; Email:zhuofan.21@ichat.sp.edu.sg
+// ; Date:   14 Dec 2021
+// ;==========================================
 const category=require("../models/category")
 const categoryControl={
     async addCategory(req,res){
