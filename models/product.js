@@ -5,14 +5,39 @@
 // ; Date:   14 Dec 2021
 // ;==========================================
 const database=require('../config/DB-SP_IT')
-function newProduct(name,description,categoryid,brand,price,callback){
+const multer  = require('multer')
+const path = require('path')
+const upload = multer({ dest: path.join(__dirname, '../productImage') })
+const fs = require('fs')
+function newProduct(productFile,partialFile,name,description,categoryid,brand,price,callback){
+
+    // const busboy = new Busboy({ headers: productFile });
+
+    // busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+    //     if (filename) {
+    //         fileDirectory = path.join(__dirname, '../productImage', filename);
+    //         file.pipe(fs.createWriteStream(fileDirectory));
+    //     }
+    // });
+    let fileDirectory=path.join(__dirname, '../productImage', "default.png");
+    if(productFile!==0){
+
+        fileDirectory=path.join(__dirname, '../productImage', productFile)
+        partialDirectory=path.join(__dirname, '../productImage', partialFile)
+        fs.rename(partialDirectory, fileDirectory, function(err) {
+            if ( err )
+                return callback(err,null);
+        });
+    }
+
+
     let connection=database.getConnection();
     connection.connect(function(err) {
         if (err) {
             return callback(err, null)
         }else{
-            let query="INSERT INTO product (name,description,categoryid,brand,price) VALUES (?,?,?,?,?)"
-            connection.query(query,[name,description,categoryid,brand,price],function(err,field,rows){
+            let query="INSERT INTO product (name,description,categoryid,brand,price,product_image) VALUES (?,?,?,?,?,?)"
+            connection.query(query,[name,description,categoryid,brand,price,fileDirectory],function(err,field,rows){
              connection.end()
                 if(err){
                     return callback(err,null)
