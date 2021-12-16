@@ -66,7 +66,19 @@ const userControl={
 
 
     },
+    async getToken(req,res){
+        let userID=req.body.userid;
+        let password=req.body.password;
+        user.getToken(userID,password,function(err,result){
+            if (err){
+                res.status(500).json({"500 Error":err.code})
+            }else{
+                res.status(200).json(result)
+            }
+        })
 
+
+    }
 }
 
 module.exports=userControl

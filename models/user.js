@@ -5,6 +5,8 @@
 // ; Date:   14 Dec 2021
 // ;==========================================
 const database=require('../config/DB-SP_IT')
+const jwt=require('jsonwebtoken')
+const secret=require('../config/jwtKey')
 function viewUser(callback){
     let connection=database.getConnection();
     connection.connect(function(err){
@@ -84,6 +86,36 @@ function updateUser(userID,username,email,contact,password,type,profile,callback
         }
     })
 }
+function getToken(userID,password,callback){
+    let connection=database.getConnection();
+    connection.connect(function(err) {
+        if (err) {
+            return callback(err, null)
+        }else{
+            let userToken
+            let query='select username from users where userid=? and password=?'
+            connection.query(query,[userID,password],function(err,field,rows){
+                if (err){
+                    return callback(err,null)
+                }else{
+                    let msg;
+                    if (field.length===1){
+                        userToken=jwt.sign({id:userID,name:field[0].username},secret.key,{
+                            expiresIn:1209600 //expire in 2 weeks
+
+                        })
+                        msg='Verification Success!Welcome '+field[0].username+',Your Auth:'+userToken
+                    }else{
+                        msg="Verification Failed!"
+                    }
+                    return callback(null,msg)
+                }
+            })
+        }
+
+    })
+
+}
 module.exports={
-    viewUser,viewUserByID,registerUser,updateUser
+    viewUser,viewUserByID,registerUser,updateUser,getToken
 }
