@@ -10,7 +10,7 @@ const authenticateToken=require("../middlewares/jwt")
 const app=express
 const router=app.Router()
 router.get("/cart",authenticateToken,cartControl.getCart)
-router.post("/cart/:id",cartControl.addToCart)
-router.put("/cart/:userid/:productid",cartControl.editQuantity)
-router.delete("/cart/:id",cartControl.deleteItem)
+router.post("/cart",authenticateToken,cartControl.addToCart)
+router.put("/cart/:productid",authenticateToken,cartControl.editQuantity)
+router.delete("/cart/:productid",authenticateToken,cartControl.deleteItem)
 module.exports=router

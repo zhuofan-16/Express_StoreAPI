@@ -18,15 +18,40 @@ const cartControl={
 
     },
     async addToCart(req,res){
-        let userID=req.params.id;
+        let userID=req.id;
         let productID=req.body.productid;
-        let quantity=req.body.quantity
+        let quantity=req.body.quantity;
+        cart.newCart(userID,productID,quantity,function(err,result){
+            if (err){
+                res.status(500).json({"500 Error":err.code})
+            }else{
+                res.status(200).json({"200 Success":"Item added"})
+            }
+        })
+
     },
     async editQuantity(req,res){
-
+        let userID=req.id;
+    let productID=req.params.productid;
+    let quantity=req.body.quantity;
+    cart.updateQuantity(userID,productID,quantity,function(err,result){
+        if (err){
+            res.status(500).json({"500 Error":err.code})
+        }else{
+            res.status(200).json({"200 Success":"Edit success"})
+        }
+    })
     },
     async deleteItem(req,res){
-
+        let userID=req.id;
+        let productID=req.params.productid;
+        cart.deleteItem(userID,productID,function(err,result){
+            if (err){
+                res.status(500).json({"500 Error":err.code})
+            }else{
+                res.status(200).json({"200 Success":"Delete Success"})
+            }
+        })
     }
 }
 
