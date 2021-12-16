@@ -93,14 +93,14 @@ function getToken(userID,password,callback){
             return callback(err, null)
         }else{
             let userToken
-            let query='select username from users where userid=? and password=?'
+            let query="select username,type from users where userid=? and password=?"
             connection.query(query,[userID,password],function(err,field,rows){
                 if (err){
                     return callback(err,null)
                 }else{
                     let msg;
                     if (field.length===1){
-                        userToken=jwt.sign({id:userID,name:field[0].username},secret.key,{
+                        userToken=jwt.sign({id:userID,name:field[0].username,role:field[0].type},secret.key,{
                             expiresIn:1209600 //expire in 2 weeks
 
                         })

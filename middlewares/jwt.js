@@ -17,6 +17,7 @@ function authenticateToken(req, res, next){
                 return res.status(403).send("Verification Failed")
             }else{
                 req.id=result.id
+                req.role=result.role
                 next()
             }
         })
