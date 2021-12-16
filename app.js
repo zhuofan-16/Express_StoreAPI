@@ -11,6 +11,7 @@ const productControl=require("./routes/product")
 const reviewControl=require("./routes/review")
 const interestControl=require("./routes/interest")
 const cartControl=require("./routes/cart")
+const promotionControl=require("./routes/promotion")
 const app=express()
 
 const user=require('./routes/user');
@@ -25,6 +26,7 @@ app.use(productControl)
 app.use(reviewControl)
 app.use(interestControl)
 app.use(cartControl)
+app.use(promotionControl)
 
 const server=app.listen(port,function(){
 
