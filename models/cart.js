@@ -102,6 +102,101 @@ function deleteItem(userID,productID,callback){
 
     })
 }
+function checkoutCart(userID,promotioncode,callback){
+    let connection=database.getConnection();
+    connection.connect(function(err) {
+        if (err) {
+            return callback(err, null)
+        } else {
+            let query="Select product.name,product.productid,product.categoryid,cart.quantity,product.price*cart.quantity,cart.created_at from cart join product on cart.productid=product.productid where cart.userid=?"
+
+            connection.query(query,[userID],function(err,productfield,productrows){
+                if (err){
+                    return callback(err,null)
+                }else{
+                    let changedResult = JSON.parse(JSON.stringify(productfield).split('"product.price*cart.quantity":').join('"price":'));
+
+                    if (promotioncode){
+                        let promoQuery="SELECT categoryid,productid,value from promotion where promo_key=? and end_date>=CURDATE() and start_date<=CURDATE()"
+                        connection.query(promoQuery,[promotioncode],function(err,field,rows){
+                            if (field.length===0){
+
+                                return callback("Promo Code has expired or invalid",null)
+                            }
+                            else{
+                                if (field[0].categoryid){
+
+                                    for (let i=0;i<changedResult.length;i++){
+                                        if (changedResult[i].categoryid===field[0].categoryid){
+                                            changedResult[i].price=changedResult[i].price-field[0].value
+                                        }
+                                    }
+
+                                }else{
+
+                                    for (let i=0;i<changedResult.length;i++){
+                                        if (changedResult[i].productid===field[0].productid){
+                                            changedResult[i].price=changedResult[i].price-field[0].value
+                                        }
+                                    }
+                                }
+                                let total_price = 0
+                                for (let i = 0; i < changedResult.length; i++) {
+                                    total_price = changedResult[i].price + total_price
+                                }
+
+                                changedResult = JSON.stringify(changedResult)
+                                let finalQuery = "INSERT INTO orders (userid,payment_value,products) values (?,?,?)"
+                                connection.query(finalQuery, [userID, total_price, changedResult], function (err, insertfield, insertrows) {
+                                    if (err) {
+                                        return callback(err, null)
+                                    } else {
+                                        // let deleteQuery="Delete from cart where userid=?"
+                                        // connection.query()
+
+                                        return callback(null, insertfield.insertId)
+                                    }
+                                })
+                            }
+                        })
+                    }else {
+
+                        let total_price = 0
+                        for (let i = 0; i < changedResult.length; i++) {
+                            total_price = changedResult[i].price + total_price
+                        }
+
+                        changedResult = JSON.stringify(changedResult)
+                        let finalQuery = "INSERT INTO orders (userid,payment_value,products) values (?,?,?)"
+                        connection.query(finalQuery, [userID, total_price, changedResult], function (err, insertfield, insertrows) {
+                            if (err) {
+                                return callback(err, null)
+                            } else {
+                                // let deleteQuery="Delete from cart where userid=?"
+                                // connection.query()
+
+                                return callback(null, insertfield.insertId)
+                            }
+                        })
+                    }
+
+
+
+
+
+
+
+
+
+
+
+                }
+            })
+    }
+
+
+    })
+}
 module.exports={
-        viewCart,newCart,updateQuantity,deleteItem
+        viewCart,newCart,updateQuantity,deleteItem,checkoutCart
 }

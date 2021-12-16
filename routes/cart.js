@@ -13,4 +13,5 @@ router.get("/cart",authenticateToken,cartControl.getCart)
 router.post("/cart",authenticateToken,cartControl.addToCart)
 router.put("/cart/:productid",authenticateToken,cartControl.editQuantity)
 router.delete("/cart/:productid",authenticateToken,cartControl.deleteItem)
+router.get("/cart/checkout",authenticateToken,cartControl.checkoutCart)
 module.exports=router

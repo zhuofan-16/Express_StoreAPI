@@ -6,7 +6,7 @@
 // ;==========================================
 const jwt = require('jsonwebtoken');
 const secret=require('../config/jwtKey')
-function authenticateToken(req, res, next){
+function authenticateToken(req,res,next){
     let token = req.headers['authorization'];
     if (token == null || !token.includes('Bearer')) {
         return res.status(403).send("Verification Failed,please login")
@@ -16,6 +16,7 @@ function authenticateToken(req, res, next){
             if (err){
                 return res.status(403).send("Verification Failed")
             }else{
+                console.log(req.body)
                 req.id=result.id
                 req.role=result.role
                 next()

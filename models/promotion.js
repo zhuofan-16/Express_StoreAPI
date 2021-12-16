@@ -11,13 +11,13 @@ function viewPromotion(callback){
       if (err) {
          return callback(err, null)
       }else{
-         let queryCategory="Select promotion.categoryid,category.category,promotion.promo_key,promotion.value,promotion.description,promotion.start_date,promotion.end_date from promotion join category on category.categoryid=promotion.categoryid where promotion.end_date>=CURDATE() and promotion.categoryid!=''"
+         let queryCategory="Select promotion.categoryid,category.category,promotion.promo_key,promotion.value,promotion.description,promotion.start_date,promotion.end_date from promotion join category on category.categoryid=promotion.categoryid where promotion.end_date>=CURDATE() and promotion.start_date<=CURDATE() and promotion.categoryid!=''"
       connection.query(queryCategory,function(err,field,rows){
          if (err){
             console.log(err)
             return callback(err,null)
          }else{
-            let queryItem="Select promotion.productid,product.name,promotion.promo_key,promotion.value,promotion.description,promotion.start_date,promotion.end_date from promotion join product on product.productid=promotion.productid where promotion.end_date>=CURDATE() and promotion.productid!=''"
+            let queryItem="Select promotion.productid,product.name,promotion.promo_key,promotion.value,promotion.description,promotion.start_date,promotion.end_date from promotion join product on product.productid=promotion.productid where promotion.end_date>=CURDATE() and promotion.start_date<=CURDATE() and promotion.productid!=''"
             connection.query(queryItem,function(err,fielditem,rowsitem){
              connection.end()
                if (err){
@@ -87,6 +87,7 @@ function deletePromotion(promotionID,callback){
       }else{
          let query="DELETE from promotion where promotionid=?"
          connection.query(query,promotionID,function(err,field,rows){
+            connection.end()
             if (err){
                return callback(err,null)
             }else{

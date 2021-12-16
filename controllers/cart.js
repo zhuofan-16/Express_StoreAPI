@@ -52,7 +52,23 @@ const cartControl={
                 res.status(200).json({"200 Success":"Delete Success"})
             }
         })
-    }
+    },
+    async checkoutCart(req,res){
+        let userID=req.id;
+        let promotioncode=null
+        if ('promo_key' in req.body){
+            promotioncode=req.body.promo_key
+        }
+        cart.checkoutCart(userID,promotioncode,function(err,result){
+            if (err){
+                res.status(500).json({"500 Error":err})
+            }else{
+                res.status(200).send("Checkout Successful!Your order number is : "+result)
+            }
+        })
+
+
+    },
 }
 
 module.exports=cartControl

@@ -12,6 +12,7 @@ const reviewControl=require("./routes/review")
 const interestControl=require("./routes/interest")
 const cartControl=require("./routes/cart")
 const promotionControl=require("./routes/promotion")
+const orderControl=require("./routes/order")
 const app=express()
 
 const user=require('./routes/user');
@@ -25,8 +26,9 @@ app.use(categoryControl)
 app.use(productControl)
 app.use(reviewControl)
 app.use(interestControl)
-app.use(cartControl)
 app.use(promotionControl)
+app.use(cartControl)
+app.use(orderControl)
 
 const server=app.listen(port,function(){
 
