@@ -1,7 +1,7 @@
 
 <img src="https://user-images.githubusercontent.com/59607914/146635304-6bc8040c-758b-4720-ba57-176c854ef4bb.png" width="300" height="100">
 
-**A store API based on express framwork** \
+**A store API based on express framework** \
 ![](https://img.shields.io/badge/JavaScript-F7DF1E?style=fflat-square&logo=javascript&logoColor=black) 
 ![](https://img.shields.io/badge/Node.js-43853D?style=fflat-square&logo=node.js&logoColor=white)
 ![](https://img.shields.io/badge/MySQL-00000F?style=fflat-square&logo=mysql&logoColor=white) \
