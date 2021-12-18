@@ -16,7 +16,6 @@ function authenticateToken(req,res,next){
             if (err){
                 return res.status(403).send("Verification Failed")
             }else{
-                console.log(req.body)
                 req.id=result.id
                 req.role=result.role
                 next()

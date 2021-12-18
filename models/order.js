@@ -12,7 +12,7 @@ function viewOrder(userID,callback){
         if (err) {
             return callback(err, null)
         }else{
-            let query="SELECT orderid,products,created_at from order where userid=?"
+            let query="SELECT orderid,payment_value,products,created_at from orders where userid=?"
             connection.query(query,[userID],function(err,field,rows){
               connection.end()
                 if (err){

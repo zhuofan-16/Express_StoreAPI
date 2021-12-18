@@ -148,12 +148,13 @@ function checkoutCart(userID,promotioncode,callback){
                                 changedResult = JSON.stringify(changedResult)
                                 let finalQuery = "INSERT INTO orders (userid,payment_value,products) values (?,?,?)"
                                 connection.query(finalQuery, [userID, total_price, changedResult], function (err, insertfield, insertrows) {
+
                                     if (err) {
                                         return callback(err, null)
                                     } else {
-                                        // let deleteQuery="Delete from cart where userid=?"
-                                        // connection.query()
-
+                                        let deleteQuery="Delete from cart where userid=?"
+                                        connection.query(deleteQuery,[userID])
+                                        connection.end()
                                         return callback(null, insertfield.insertId)
                                     }
                                 })
@@ -169,11 +170,13 @@ function checkoutCart(userID,promotioncode,callback){
                         changedResult = JSON.stringify(changedResult)
                         let finalQuery = "INSERT INTO orders (userid,payment_value,products) values (?,?,?)"
                         connection.query(finalQuery, [userID, total_price, changedResult], function (err, insertfield, insertrows) {
+
                             if (err) {
                                 return callback(err, null)
                             } else {
-                                // let deleteQuery="Delete from cart where userid=?"
-                                // connection.query()
+                                let deleteQuery="Delete from cart where userid=?"
+                                connection.query(deleteQuery,[userID])
+                                connection.end()
 
                                 return callback(null, insertfield.insertId)
                             }
