@@ -31,7 +31,7 @@ As such, SP IT! has tasked you to design the backend API Specs the website. The 
 
 **User Verification**:jwt module is used to verify token and get user's id,roles. 
 
-## Preparation
+# Preparation
 ### Setting up the database
 You are supposed to run the following query to set up your database
 
