@@ -1,5 +1,5 @@
 
-<img src="https://user-images.githubusercontent.com/59607914/146635304-6bc8040c-758b-4720-ba57-176c854ef4bb.png" width="300" height="100">
+<img src="https://user-images.githubusercontent.com/59607914/146635304-6bc8040c-758b-4720-ba57-176c854ef4bb.png" alt="Singapore Polytechnic Logo" width="300" height="100">
 
 **A store API based on express framework** \
 ![](https://img.shields.io/badge/JavaScript-F7DF1E?style=fflat-square&logo=javascript&logoColor=black) 
@@ -15,9 +15,9 @@ SP IT! is considering setting up an online e-store to allow the public to purcha
 As such, SP IT! has tasked you to design the backend API Specs the website. The API specs would support functionalities such as user registration, publication of product info, insertion of products and user reviews.  
 
 # Feature Implemented
-**Product management** : Get products detail,add new product,update product detail,delete product.
+**Product management** : Get products detail,add new product(with product image upload),update product detail,delete product.Additionally,user will be able to view product images
 
-**User mangement** : Get user details(single or all),add new users ,update existing users,delete user,get user token(This is needed to access cart and order features) 
+**User management** : Get user details(single or all),add new users ,update existing users,delete user,get user token(This is needed to access cart and order features) 
 
 **Cart management** : Customer can add items into their cart,update quantities of item ,delete item from cart and checkout the cart together with promo code(These features require token:User specific function) 
 
