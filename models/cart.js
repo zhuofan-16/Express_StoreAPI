@@ -70,15 +70,28 @@ function updateQuantity(userID,productID,quantity,callback){
         if (err) {
             return callback(err, null)
         }else{
-            let query="update cart set quantity=? where userid=? and productid=?"
-            connection.query(query,[quantity,userID,productID],function(err,field,rows){
-              connection.end()
-                if (err){
-                    return callback(err,null)
-                }else{
-                    return callback(null,field)
-                }
-            })
+            if (quantity===0){
+                let query="delete from cart where userid=? and productid=?"
+                connection.query(query,[userID,productID],function(err,field,rows){
+                    connection.end()
+                    if (err){
+                        return callback(err,null)
+                    }else{
+                        return callback(null,field)
+                    }
+                })
+            }else{
+                let query="update cart set quantity=? where userid=? and productid=?"
+                connection.query(query,[quantity,userID,productID],function(err,field,rows){
+                    connection.end()
+                    if (err){
+                        return callback(err,null)
+                    }else{
+                        return callback(null,field)
+                    }
+                })
+            }
+
         }
 
     })

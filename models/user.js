@@ -95,6 +95,7 @@ function getToken(userID,password,callback){
             let userToken
             let query="select username,type from users where userid=? and password=?"
             connection.query(query,[userID,password],function(err,field,rows){
+                connection.end()
                 if (err){
                     return callback(err,null)
                 }else{
