@@ -140,8 +140,11 @@ function viewProductImage(productID,callback){
                 if (err){
                     return callback(err,null)
                 }else{
-
-                    return callback(null,field[0].product_image)
+                    if (field.length===0){
+                        return callback("Product not found",null)
+                    }else {
+                        return callback(null, field[0].product_image)
+                    }
 
                 }
             })

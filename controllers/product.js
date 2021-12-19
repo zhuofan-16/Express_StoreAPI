@@ -6,8 +6,9 @@
 // ;==========================================
 const product=require("../models/product")
 const fs=require('fs')
-var mmm = require('mmmagic')
-var magic = new mmm.Magic(mmm.MAGIC_MIME_TYPE);
+const mmm = require('mmmagic')
+const path=require('path')
+const magic = new mmm.Magic(mmm.MAGIC_MIME_TYPE);
 const productControl= {
     //The default no-product image is retrieved from :https://lovellaa.com/shop/4
    async addProduct(req,res){
@@ -77,9 +78,19 @@ const productControl= {
     let productID=req.params.id;
     product.viewProductImage(productID,function(err,result){
         if (err){
-            res.status(500).json({"500 Error":err.code})
+            res.status(500).json({"500 Error":err})
         }else{
-            res.status(200).sendFile(result)
+            if (path.isAbsolute(result)){
+                if (fs.existsSync(result)){
+                res.status(200).sendFile(result)}
+                else{
+                    res.status(500).end("Missing images,you might have cleaned up the photo directory or used an invalid path")
+                }
+            }else{
+
+                res.status(500).end("Please read the instructions in readme")
+            }
+
         }
     })
     }
