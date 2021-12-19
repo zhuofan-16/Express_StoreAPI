@@ -7,9 +7,10 @@
 const express=require('express')
 const orderControl=require("../controllers/order")
 const authenticateToken=require("../middlewares/jwt")
+const AdminAuthorisation=require("../middlewares/adminAuthorisation")
 const app=express
 const router=app.Router()
 
 router.get("/order",authenticateToken,orderControl.getAllOrder)
-
+router.get('/order/all',authenticateToken,AdminAuthorisation,orderControl.getFullListOrder)
 module.exports=router

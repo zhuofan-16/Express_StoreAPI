@@ -16,8 +16,16 @@ const orderControl= {
                 res.status(200).json(result)
             }
         })
+    },
+    async getFullListOrder(req,res){
+        order.viewOrderAll(function(err,result){
+            if (err){
+                res.status(500).json({"500 Error":err.code})
+            }else{
+                res.status(200).json(result)
+            }
+        })
     }
-
 
 }
 

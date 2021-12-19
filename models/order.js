@@ -12,7 +12,7 @@ function viewOrder(userID,callback){
         if (err) {
             return callback(err, null)
         }else{
-            let query="SELECT orderid,payment_value,products,created_at from orders where userid=?"
+            let query="SELECT orderid,payment_value,products,created_at from orders where userid=? order by DESC"
             connection.query(query,[userID],function(err,field,rows){
               connection.end()
                 if (err){
@@ -26,7 +26,26 @@ function viewOrder(userID,callback){
 
     })
 }
+function viewOrderAll(callback){
+    let connection=database.getConnection();
+    connection.connect(function(err) {
+        if (err) {
+            return callback(err, null)
+        }else{
+            let query="SELECT orderid,payment_value,products,created_at from orders order by DESC"
+            connection.query(query,function(err,field,rows){
+                connection.end()
+                if (err){
+                    return callback(err,null)
+                }else{
+                    return callback(null,field)
+                }
+            })
+        }
 
+
+    })
+}
 module.exports={
-viewOrder
+viewOrder,viewOrderAll
 }
