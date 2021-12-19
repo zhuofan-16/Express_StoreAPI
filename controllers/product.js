@@ -9,8 +9,7 @@ const fs=require('fs')
 var mmm = require('mmmagic')
 var magic = new mmm.Magic(mmm.MAGIC_MIME_TYPE);
 const productControl= {
-    //Product Image function
-    //Reference :https://lovellaa.com/shop/4
+    //The default no-product image is retrieved from :https://lovellaa.com/shop/4
    async addProduct(req,res){
         let name=req.body.name;
         let description=req.body.description;
