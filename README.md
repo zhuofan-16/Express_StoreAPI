@@ -33,7 +33,38 @@ As such, SP IT! has tasked you to design the backend API Specs the website. The 
 
 # Preparation
 ### Setting up the database
-You are supposed to run the following query to set up your database
+You are supposed to run the query script to set up your database.
+
+**NOTE: Before running it,you need to edit the following information**
+
+Find the following lines,look for the product_image part
+```sql
+-- ----------------------------
+-- Records of product
+-- ----------------------------
+BEGIN;
+INSERT INTO `product` (`productid`, `name`, `description`, `categoryid`, `brand`, `price`, `created_at`, `product_image`) VALUES (1, 'OPPO Reno 6 Pro 星河入梦 8+256', '焕采人像视频 在我眼里你会发光', 2, 'OPPO', 3299.00, '2021-12-16 15:01:31.710821', '/Users/zhuofan/WebstormProjects/Express_StoreAPI/productImage/849d22f534168142297c54ebcbcf8905.png');
+INSERT INTO `product` (`productid`, `name`, `description`, `categoryid`, `brand`, `price`, `created_at`, `product_image`) VALUES (2, 'Apple iPad Air 3 64GB WIFI', 'Change is in the Air', 3, 'Apple', 3000.00, '2021-12-16 15:06:48.720721', '/Users/zhuofan/WebstormProjects/Express_StoreAPI/productImage/a875a676ca0cb11b0171a17424780ea9.jpeg');
+INSERT INTO `product` (`productid`, `name`, `description`, `categoryid`, `brand`, `price`, `created_at`, `product_image`) VALUES (3, 'Xiaomi 11 Lite 5G NE 8+256 Swarovski White', '轻薄5G，内外皆出彩', 2, 'Xiaomi', 2500.00, '2021-12-16 16:42:15.049652', '/Users/zhuofan/WebstormProjects/Express_StoreAPI/productImage/cd8ec411f6f68fec01cc88a430f725cc.png');
+INSERT INTO `product` (`productid`, `name`, `description`, `categoryid`, `brand`, `price`, `created_at`, `product_image`) VALUES (4, 'Apple Macbook Pro 2020 M1 8+256', 'All systems Pro.', 1, 'Apple', 15000.00, '2021-12-16 17:00:28.669917', '/Users/zhuofan/WebstormProjects/Express_StoreAPI/productImage/032c46e2e1e4c2c6db97b457b534563d.jpeg');
+COMMIT;
+```
+Change all the **"/Users/zhuofan/WebstormProjects/Express_StoreAPI"** to your own project directory
+
+If you do not know how to find your working directory
+
+**Go to your project directory** and open up your terminal/cmd at there.
+
+**For MacOS/Linux**
+```shell
+pwd
+```
+**For Windows**
+```shell
+echo %cd%
+```
+
+**Here is the query script. Make sure you execute the above instruction before running the script.**
 
 ```sql
 /*
