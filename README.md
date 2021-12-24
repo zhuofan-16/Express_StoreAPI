@@ -4,7 +4,8 @@
 **A store API based on express framework** \
 ![](https://img.shields.io/badge/JavaScript-F7DF1E?style=fflat-square&logo=javascript&logoColor=black) 
 ![](https://img.shields.io/badge/Node.js-43853D?style=fflat-square&logo=node.js&logoColor=white)
-![](https://img.shields.io/badge/MySQL-00000F?style=fflat-square&logo=mysql&logoColor=white) \
+![](https://img.shields.io/badge/MySQL-00000F?style=fflat-square&logo=mysql&logoColor=white) 
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=fflat-square&logo=express&logoColor=%2361DAFB)\
 ![](https://img.shields.io/github/issues/zhuofan-16/Express_StoreAPI.svg)
 ![](https://img.shields.io/github/issues-pr/zhuofan-16/Express_StoreAPI.svg)
 # Introduction
