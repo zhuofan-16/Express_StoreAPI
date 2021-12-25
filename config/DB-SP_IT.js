@@ -12,7 +12,7 @@ let dbConnect={
         return mysql.createConnection({
                 host: "localhost",
                 user: "root",
-                password: "Rachel272993",
+                password: "Rachel272993@",
                 database: "SP_IT"
 
             }
