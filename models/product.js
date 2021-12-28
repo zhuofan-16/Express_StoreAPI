@@ -152,6 +152,24 @@ function viewProductImage(productID,callback){
 
     })
 }
+function viewAllProduct(callback){
+    let connection=database.getConnection();
+    connection.connect(function(err) {
+        if (err) {
+            return callback(err, null)
+        }else {
+            let query = "SELECT product.name,product.description,product.categoryid,category.category,product.brand,product.price,product.product_image from product inner join category on product.categoryid=category.categoryid "
+            connection.query(query,function(err,field,rows){
+                connection.end()
+                if (err){
+                    return callback(err,null)
+                }else{
+                    return callback(null,field)
+                }
+            })
+        }
+        })
+}
 module.exports={
-            newProduct,viewProduct,removeProduct,viewProductImage
+            newProduct,viewProduct,removeProduct,viewProductImage,viewAllProduct
 }

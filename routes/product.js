@@ -11,9 +11,10 @@ const router=app.Router()
 const multer  = require('multer')
 const path = require("path");
 const upload =  multer({ dest: path.join(__dirname, '../productImage') })
-// Need to add quantity
+
 router.post("/product",upload.single('product_image'),productControl.addProduct)
 router.get("/product/:id",productControl.getAllProduct)
+router.get("/product",productControl.listAllProduct)
 router.delete("/product/:id",productControl.deleteProduct)
 router.get("/product/image/:id",productControl.getProductImage)
 module.exports=router

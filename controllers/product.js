@@ -99,6 +99,16 @@ const productControl= {
 
         }
     })
+    },
+    //List all products
+    async listAllProduct(req,res){
+        product.viewAllProduct(function(err,result){
+            if (err){
+                res.status(500).json({"500 Error":err.code})
+            }else{
+                res.status(200).json(result)
+            }
+        })
     }
 
 }
