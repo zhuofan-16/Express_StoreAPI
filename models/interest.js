@@ -5,12 +5,15 @@
 // ; Date:   14 Dec 2021
 // ;==========================================
 const database=require('../config/DB-SP_IT')
+//Add user interest
 function newInterest(userID,categoryID,callback){
+    //Make connection
     let connection=database.getConnection();
     connection.connect(function(err) {
         if (err) {
             return callback(err, null)
         }else{
+            //Query
             let query="INSERT INTO interest (userid,categoryids) VALUES (?,?)"
             connection.query(query,[userID,categoryID],function(err,field,rows){
                 connection.end();
@@ -26,34 +29,41 @@ function newInterest(userID,categoryID,callback){
 
     })
 }
+//View interest of a user
 function viewInterestByID(userID,callback){
+    //Make connection
     let connection=database.getConnection();
     connection.connect(function(err) {
         if (err) {
             return callback(err, null)
         }else {
+            //Query to get categoryids and process it
             let initialQuery="SELECT categoryids from interest where userid=?"
             connection.query(initialQuery,[userID],function(err,field,rows){
                 if (err){
                     return callback(err,null)
                 }else{
-                    if (!field[0].categoryids){
+
+                    //If no interest field[0].hasOwnProperty(categoryids)
+                    if (!field.length){
                         return callback(null,"No interest")
                     }
+                    //Process the retrieve data ,break the string
                     changeResult=field[0].categoryids.split(seperator=',')
-                    console.log(changeResult)
+
+                    //Query for category name  using categoryid
                     let secondQuery='SELECT category,description from category where categoryid=? '
+                    //Extend query statement depending on number of categories
                     for (let i=1;i<changeResult.length;i++){
                         secondQuery+=" OR categoryid=?"
                     }
                     connection.query(secondQuery,changeResult,function(err,field,rows){
                       connection.end()
                         if (err){
-                            console.log(err)
                             return callback(err,null)
                         }else{
-                            console.log(field)
                             let interest=field
+                            //Format result
                             let finalResult={
                                 "userid":userID,
                                 interest
@@ -68,7 +78,9 @@ function viewInterestByID(userID,callback){
 
     })
 }
+//View interest of all users
 function viewInterest(callback){
+    //Make connection
     let connection=database.getConnection();
     connection.connect(function(err) {
         if (err) {
@@ -79,20 +91,20 @@ function viewInterest(callback){
                 if (err){
                     return callback(err,null)
                 }else{
-                    if (!field[0].categoryids){
-                        return callback(null,"No interest")
-                    }
-                    // console.log(field[0].userid)
+
                     let listCategory=new Object()
                     // console.log(field)
                     let firstfield=field
+                    //Query
                     let secondQuery='select categoryid,category,description from category'
                     connection.query(secondQuery,function(err,field,rows){
                        connection.end()
                         let result=field;
                         for (let i=0;i<result.length;i++){
+                            //Move local
                             listCategory[result[i].categoryid]=result[i].category
                         }
+                        //Replace categoryid with category name
                         var key
                         for ( key in listCategory) {
                             if (!listCategory.hasOwnProperty(key)) {
@@ -119,12 +131,15 @@ function viewInterest(callback){
 
     })
 }
+//Update user interest
 function updateInterest(userID,categoryids,callback){
+    //Make connection
     let connection=database.getConnection();
     connection.connect(function(err) {
         if (err) {
             return callback(err, null)
         }else{
+            //Query
             let query='update interest set categoryids=? where userid=?'
             connection.query(query,[categoryids,userID],function(err,field,rows){
             connection.end()
@@ -141,12 +156,14 @@ function updateInterest(userID,categoryids,callback){
 
     })
 }
+//Delete user interest
 function deleteInterest(userID,callback){
     let connection=database.getConnection();
     connection.connect(function(err) {
         if (err) {
             return callback(err, null)
         }else{
+            //Query
             let query="DELETE FROM interest where userid=?"
             connection.query(query,[userID],function(err,field,rows){
                connection.end()

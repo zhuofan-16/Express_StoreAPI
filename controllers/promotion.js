@@ -25,6 +25,7 @@ const promotionControl={
     let description=req.body.description;
     let start_date=req.body.start_date
     let end_date=req.body.end_date
+    //Check whether the new promotion is on category or on item
 if (req.body.hasOwnProperty('categoryid')){
   categoryID=req.body.categoryid
 }else{

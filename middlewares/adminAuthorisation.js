@@ -4,7 +4,7 @@
 // ; Email:zhuofan.21@ichat.sp.edu.sg
 // ; Date:   14 Dec 2021
 // ;==========================================
-
+//Admin authorisation ,make sure role of account is admin
 function AdminAuthorisation(req,res,next){
     if (req.role.toLowerCase()==="customer"){
         return res.status(403).send("You are unauthorised to carry out this operation")

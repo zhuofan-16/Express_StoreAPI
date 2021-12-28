@@ -11,9 +11,11 @@ const upload = multer({ dest: path.join(__dirname, '../productImage') })
 const fs = require('fs')
 var mmm = require('mmmagic')
 var magic = new mmm.Magic(mmm.MAGIC_MIME_TYPE);
+//New product
 function newProduct(productFile,partialFile,name,description,categoryid,brand,price,callback){
+    //Set default image path if no product image is uploaded
     let fileDirectory=path.join(__dirname, '../productImage', "default.png");
-
+//If there is product image uploaded ,update path to image path
     if(productFile!==0){
 
         fileDirectory=path.join(__dirname, '../productImage', productFile)
@@ -29,14 +31,17 @@ function newProduct(productFile,partialFile,name,description,categoryid,brand,pr
 
             }else{
                 result=result.split("/")
+                //Check whether image
                 if(result[0].toLowerCase()!=='image'){
                     return callback("Fake/Unsupported Image Detected",null)
                 }else{
+                    //Make connection
                     let connection=database.getConnection();
                     connection.connect(function(err) {
                         if (err) {
                             return callback(err, null)
                         }else{
+                            //Query
                             let query="INSERT INTO product (name,description,categoryid,brand,price,product_image) VALUES (?,?,?,?,?,?)"
                             connection.query(query,[name,description,categoryid,brand,price,fileDirectory],function(err,field,rows){
                                 connection.end()
@@ -52,6 +57,7 @@ function newProduct(productFile,partialFile,name,description,categoryid,brand,pr
                 }
             }
         });
+        //If no product image uploaded
     }else{
         let connection=database.getConnection();
         connection.connect(function(err) {
@@ -78,12 +84,15 @@ function newProduct(productFile,partialFile,name,description,categoryid,brand,pr
 
 
 }
+//View a product's detail
 function viewProduct(id,callback){
+    //Make connection
     let connection=database.getConnection();
     connection.connect(function(err) {
         if (err) {
             return callback(err, null)
         }else{
+            //Query
             let query="SELECT product.name,product.description,product.categoryid,category.category,product.brand,product.price,product.product_image from product inner join category on product.categoryid=category.categoryid where product.productid=?"
             connection.query(query,[id],function(err,field,rows){
                 connection.end()
@@ -92,8 +101,9 @@ function viewProduct(id,callback){
                     return callback(err,null)
 
                 }else{
+                    //Change field name
                     let changedResult = JSON.parse(JSON.stringify(field).split('"category":').join('"categoryname":'));
-
+                    //Return product image as base64
                     function base64_encode(file) {
                         // read binary data
                         var bitmap = fs.readFileSync(file);
@@ -109,12 +119,15 @@ function viewProduct(id,callback){
 
     })
 }
+//Remove a product
 function removeProduct(productID,callback){
+    //Make connection
     let connection=database.getConnection();
     connection.connect(function(err) {
         if (err) {
             return callback(err, null)
         }else{
+            //Delete product by product id
             let query="DELETE from product where productid=?"
             connection.query(query,[productID],function(err,field,rows){
                 connection.end()
@@ -128,18 +141,22 @@ function removeProduct(productID,callback){
 
     })
 }
+//View product image
 function viewProductImage(productID,callback){
+    //Make connection
     let connection=database.getConnection();
     connection.connect(function(err) {
         if (err) {
             return callback(err, null)
         }else{
+            //Query
             let query='select product_image from product where productid=?'
             connection.query(query,[productID],function(err,field,rows){
               connection.end()
                 if (err){
                     return callback(err,null)
                 }else{
+                    //Check whether product exist
                     if (field.length===0){
                         return callback("Product not found",null)
                     }else {
@@ -152,12 +169,15 @@ function viewProductImage(productID,callback){
 
     })
 }
+//View all product
 function viewAllProduct(callback){
+    //Make connection
     let connection=database.getConnection();
     connection.connect(function(err) {
         if (err) {
             return callback(err, null)
         }else {
+            //Query
             let query = "SELECT product.name,product.productid,product.description,product.categoryid,category.category,product.brand,product.price from product inner join category on product.categoryid=category.categoryid "
             connection.query(query,function(err,field,rows){
                 connection.end()

@@ -86,6 +86,7 @@ const productControl= {
         if (err){
             res.status(500).json({"500 Error":err})
         }else{
+            //Check whether file exist in path and whether path is absolute
             if (path.isAbsolute(result)){
                 if (fs.existsSync(result)){
                 res.status(200).sendFile(result)}

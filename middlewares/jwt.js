@@ -6,6 +6,7 @@
 // ;==========================================
 const jwt = require('jsonwebtoken');
 const secret=require('../config/jwtKey')
+//Token authorisation
 function authenticateToken(req,res,next){
     let token = req.headers['authorization'];
     if (token == null || !token.includes('Bearer')) {
