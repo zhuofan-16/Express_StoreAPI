@@ -10,10 +10,14 @@ const authenticateToken = require("../middlewares/jwt");
 const AdminAuthorisation = require("../middlewares/adminAuthorisation");
 const app=express
 const router=app.Router()
-
+//Add user interest(In categories)
 router.post("/interest/:userid",interestControl.addInterest)
+//Retrieve a user's interest
 router.get("/interest/:id",interestControl.getInterestByID)
+//Retrieve interest of all user -Require admin authorisation
 router.get("/interest",authenticateToken,AdminAuthorisation,interestControl.getInterest)
+//Update user preference/interest on categories
 router.put("/interest/:id",interestControl.updateInterest)
+//Delete user interest
 router.delete("/interest/:id",interestControl.deleteInterest)
 module.exports=router

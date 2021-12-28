@@ -9,8 +9,9 @@ const reviewControl=require("../controllers/review")
 const app=express
 const router=app.Router()
 
-
+//Add product reviews
 router.post("/product/:id/review",reviewControl.addReview)
+//Get reviews of a product
 router.get("/product/:id/reviews",reviewControl.getAllReview)
 
 module.exports=router
