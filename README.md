@@ -315,6 +315,10 @@ Project started successfully if you see the following message:
 SP_IT API STARTED ON http://localhost:8090
 
 ```
+#Notes
+
+1.	**For Promotion**: Only input either productid or categoryid. The other one must be null. If you want to have discount for category, you should fill in categoryid and neglect productid, vice versa.
+2.	Datetime should be in format of YYYY-MM-DD HH:MM:SS
 
 # Contact/Enquire
 
