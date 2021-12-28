@@ -158,7 +158,7 @@ function viewAllProduct(callback){
         if (err) {
             return callback(err, null)
         }else {
-            let query = "SELECT product.name,product.description,product.categoryid,category.category,product.brand,product.price,product.product_image from product inner join category on product.categoryid=category.categoryid "
+            let query = "SELECT product.name,product.productid,product.description,product.categoryid,category.category,product.brand,product.price from product inner join category on product.categoryid=category.categoryid "
             connection.query(query,function(err,field,rows){
                 connection.end()
                 if (err){
