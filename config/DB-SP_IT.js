@@ -5,6 +5,7 @@
 // ; Date:   14 Dec 2021
 // ;==========================================
 const mysql=require('mysql');
+//Database information
 
 let dbConnect={
 

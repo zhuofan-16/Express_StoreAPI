@@ -6,6 +6,7 @@
 // ;==========================================
 const cart=require("../models/cart")
 const cartControl={
+    //Retrieve user's cart
     async getCart(req,res){
         let userID=req.id;
         cart.viewCart(userID,function(err,result){
@@ -17,6 +18,7 @@ const cartControl={
         })
 
     },
+    // Add an item to cart
     async addToCart(req,res){
         let userID=req.id;
         let productID=req.body.productid;
@@ -30,6 +32,7 @@ const cartControl={
         })
 
     },
+    //Edit item quantity in cart
     async editQuantity(req,res){
         let userID=req.id;
     let productID=req.params.productid;
@@ -42,6 +45,7 @@ const cartControl={
         }
     })
     },
+    //Delete an item from cart
     async deleteItem(req,res){
         let userID=req.id;
         let productID=req.params.productid;
@@ -53,6 +57,7 @@ const cartControl={
             }
         })
     },
+    //Checkout the cart
     async checkoutCart(req,res){
         let userID=req.id;
         let promotioncode=null

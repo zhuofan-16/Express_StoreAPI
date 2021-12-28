@@ -6,6 +6,7 @@
 // ;==========================================
 const promotion=require("../models/promotion")
 const promotionControl={
+  //List all promotion
   async getAllPromotion(req,res){
     promotion.viewPromotion(function(err,result){
       if (err){
@@ -15,6 +16,7 @@ const promotionControl={
       }
     })
   },
+  //Add a new promotion
   async addPromotion(req,res){
     let categoryID=null;
     let productID=null;
@@ -37,6 +39,7 @@ promotion.newPromotion(productID,categoryID,value,promo_key,description,start_da
 })
 
   },
+  //Update promotion details
   async updatePromotion(req,res){
     let promotionID=req.params.promotionid;
     let categoryID=null;
@@ -60,6 +63,7 @@ promotion.newPromotion(productID,categoryID,value,promo_key,description,start_da
       }
     })
   },
+  //Delete a promotion
   async deletePromotion(req,res){
     let promotionID=req.params.promotionid;
     promotion.deletePromotion(promotionID,function(err,result){

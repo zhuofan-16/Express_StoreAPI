@@ -10,8 +10,9 @@ const mmm = require('mmmagic')
 const path=require('path')
 const magic = new mmm.Magic(mmm.MAGIC_MIME_TYPE);
 const productControl= {
-    //The default no-product image is retrieved from :https://lovellaa.com/shop/4
-   async addProduct(req,res){
+    //The default no-product image is retrieved from :https://lovellaa.com/shop/4. Last reviewed on 28 December 2021
+   //Add a new product
+    async addProduct(req,res){
         let name=req.body.name;
         let description=req.body.description;
         let categoryid=req.body.categoryid;
@@ -20,9 +21,11 @@ const productControl= {
         let productFile=0;
         let partialFile=0
         let functionFlag=1
+        //Check whether there is file uploaded
         if (req.hasOwnProperty('file')) {
             productFile = req.file.filename
             partialFile = productFile
+            //Get original extension
             let extArray = req.file.mimetype.split("/");
             let extension = "." + extArray[extArray.length - 1];
             productFile += extension
@@ -41,7 +44,7 @@ const productControl= {
             }
 
         }
-
+//Only if extension valid and size below 1mb then proceed
         if (functionFlag===1){
             product.newProduct(productFile,partialFile,name,description,categoryid,brand,price,function(err,result){
                 if (err){
@@ -53,6 +56,7 @@ const productControl= {
         }
 
     },
+    //List a product detail
     async getAllProduct(req,res){
         let id=req.params.id
         product.viewProduct(id,function(err,result){
@@ -63,6 +67,7 @@ const productControl= {
             }
         })
     },
+    //Delete a product
     async deleteProduct(req,res){
         let productID=req.params.id;
         product.removeProduct(productID,function(err,result){
@@ -74,6 +79,7 @@ const productControl= {
 
         })
     },
+    //Get product image of a product
     async getProductImage(req,res){
     let productID=req.params.id;
     product.viewProductImage(productID,function(err,result){

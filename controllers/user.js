@@ -6,6 +6,7 @@
 // ;==========================================
 const user=require("../models/user")
 const userControl={
+    //Get all registered user
     async getAllUsers(req,res){
         user.viewUser(function(err,result){
             if (err){
@@ -15,6 +16,7 @@ const userControl={
             }
         })
     },
+    //Get details of a selected user
     async getSelectedUser(req,res){
         let userID=req.params.id;
         user.viewUserByID(userID,function(err,result){
@@ -25,6 +27,7 @@ const userControl={
             }
         })
     },
+    //Create a new user
     async newUser(req,res){
         let username=req.body.username
         let email=req.body.email
@@ -44,6 +47,7 @@ const userControl={
             }
         })
     },
+    //Update user information
     async updateUser(req,res){
         let userID=req.params.id;
         let username=req.body.username
@@ -66,6 +70,7 @@ const userControl={
 
 
     },
+    //Get Authorisation Token
     async getToken(req,res){
         let userID=req.body.userid;
         let password=req.body.password;

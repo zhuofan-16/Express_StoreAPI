@@ -6,6 +6,7 @@
 // ;==========================================
 const reviewProduct=require("../models/review")
 const reviewControl={
+    //Add a new review to a product
         async addReview(req,res){
             let productID=req.params.id;
             let userID=req.body.userid;
@@ -19,6 +20,7 @@ const reviewControl={
                 }
             })
         },
+    //Get all review of a product
         async getAllReview(req,res){
             let productID=req.params.id;
             reviewProduct.viewReview(productID,function(err,result){

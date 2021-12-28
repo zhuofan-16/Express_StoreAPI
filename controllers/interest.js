@@ -6,6 +6,7 @@
 // ;==========================================
 const interest=require("../models/interest")
 const interestControl={
+    //Add the interest of a user(categoryids)
         async addInterest(req,res){
             let userID=req.params.userid;
             let categoryID=req.body.categoryids
@@ -17,6 +18,7 @@ const interestControl={
                 }
             })
         },
+    //View interest of a user
         async getInterestByID(req,res){
             let userID=req.params.id;
             interest.viewInterestByID(userID,function(err,result){
@@ -28,6 +30,7 @@ const interestControl={
             })
 
         },
+    //View interest of all user (Require admin authorisation)
         async getInterest(req,res){
         interest.viewInterest(function(err,result){
             if (err){
@@ -38,6 +41,7 @@ const interestControl={
         })
 
     },
+    //Update interest of user
         async updateInterest(req,res){
             let userID=req.params.id;
             let categoryids=req.body.categoryids
@@ -49,6 +53,7 @@ const interestControl={
                 }
             })
         },
+    //Delete interest of user
         async deleteInterest(req,res){
         let userID=req.params.id;
         interest.deleteInterest(userID,function(err,result){

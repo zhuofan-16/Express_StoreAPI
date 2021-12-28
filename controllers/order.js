@@ -6,7 +6,7 @@
 // ;==========================================
 const order=require("../models/order")
 const orderControl= {
-
+//Retrieve all order made by a user
     async getAllOrder(req,res){
         let userID=req.id;
         order.viewOrder(userID,function(err,result){
@@ -17,6 +17,7 @@ const orderControl= {
             }
         })
     },
+    //Get all order of all user (Need admin authorisation)
     async getFullListOrder(req,res){
         order.viewOrderAll(function(err,result){
             if (err){

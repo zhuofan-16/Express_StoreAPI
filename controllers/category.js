@@ -6,6 +6,7 @@
 // ;==========================================
 const category=require("../models/category")
 const categoryControl={
+    //Add a new category
     async addCategory(req,res){
         let categoryName=req.body.category;
         let description=req.body.description;
@@ -21,6 +22,7 @@ const categoryControl={
             }
         })
     },
+    //Retrieve all category
     async getAllCategory(req,res){
         category.viewCategory(function(err,result){
             if (err){
@@ -30,6 +32,7 @@ const categoryControl={
             }
         })
     },
+    //Delete a category
     async deleteCategory(req,res){
         let categoryID=req.params.id;
         category.removeCategory(categoryID,function(err,result){
