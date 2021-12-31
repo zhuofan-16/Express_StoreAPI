@@ -14,7 +14,7 @@ function viewOrder(userID,callback){
             return callback(err, null)
         }else{
             //Query rank desc so that latest come first
-            let query="SELECT orderid,payment_value,products,created_at from orders where userid=? order by DESC"
+            let query="SELECT orderid,payment_value,products,created_at from orders where userid=? order by orderid DESC"
             connection.query(query,[userID],function(err,field,rows){
               connection.end()
                 if (err){
@@ -36,7 +36,7 @@ function viewOrderAll(callback){
             return callback(err, null)
         }else{
             //Query
-            let query="SELECT orderid,payment_value,products,created_at from orders order by DESC"
+            let query="SELECT orderid,payment_value,products,created_at from orders order by orderid DESC"
             connection.query(query,function(err,field,rows){
                 connection.end()
                 if (err){
